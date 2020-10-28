@@ -23,6 +23,7 @@ connection.connect(function (err) {
   });
 
 function main() {
+    //Prints out ASCII Welcome Page
     console.log(
         
 
@@ -32,21 +33,31 @@ function main() {
   "| |___| | | | | | |_) | | (_) | |_| |  __/  __/ | |  | | (_| | | | | (_| | (_| |  __/ | \n" +
   "|_____|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___| |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_| \n" + 
   "                |_|            |___/                                      |___/  \n"        
- 
+
+    );
 
 
+  inquirer.prompt([
+      {
+          input: "list",
+          message: "What would you like to do?",
+          choices: ["View","Add","Update","Exit"],
+          name: "list"
+      }
 
+  ]).then(function(answers){
+      //could a switch statement be used here?
+    if (answers.list === "Exit") {
+        connection.end();
+    } else if (answers.list === "View") {
+        //ask what would like to be viewed, departments, roles emps
+    } else if (answers.list === "Add") {
+        //ask what would like to be added, departments, roles emps
+    } else if (answers.list === "Update") {
+        //ask what would like to be updated, departments, roles emps
+    }
 
-    )
-
-
-
-
-//   inquirer.prompt([
-
-//   ]).then(function(answers){
-
-//   })
+  }) 
 
 } //end of main function
 
