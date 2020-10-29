@@ -63,27 +63,12 @@ function main() {
             }
         ]).then(function(answers){
             if (answers.view === "Departments") {
-                //write sql to display all departments 
-                connection.query("SELECT * FROM departments", function(err, res){
-                    if (err) throw err; 
-                    console.table(res);
-                    main()
-                })
+                printTable("departments");
             } else if (answers.view === "Roles") {
-                //write sql to display all Roles
-                connection.query("SELECT * FROM role", function(err, res){
-                    if (err) throw err; 
-                    console.table(res);
-                    main()
-                })
+                printTable("role");
             } else if (answers.view === "Employees") {
-                //write sql to display all employees
-                connection.query("SELECT * FROM employee", function(err, res){
-                    if (err) throw err; 
-                    console.table(res);
-                    printTable("employee");
-                    main()
-                });
+                printTable("employee");
+               
             }
         }) //end of VIEW 
     } else if (answers.list === "Add") {
@@ -112,7 +97,8 @@ function main() {
                         name: answers.depart
                     }, function(err) {
                         if (err) throw err;
-                        console.log(`${answers.depart} was successfully entered into department table`)
+                        console.log(`${answers.depart} was successfully entered into department table`);
+                        main();
                     }
                     )
                 })
@@ -144,15 +130,17 @@ function main() {
                         salary: answers.salary,
                         department_id: answers.department_id
                     }, 
-                    
+
                     function(err) {
                         if (err) throw err;
-                        console.log(`${answers.title} was successfully entered into the role table`)
+                        console.log(`${answers.title} was successfully entered into the role table`);
+                        main();
                     }
                     )
                 })
             } else if (answers.add === "Employee") {
                 //sql to add employee here 
+
             }
         })
     } else if (answers.list === "Update") {
@@ -166,7 +154,8 @@ function main() {
 
 //ask hannah about making this funciton work 
 function printTable(data){
-    connection.query("SELECT * FROM " + (data), function(err, res){
+    const query = "SELECT * FROM " + data;
+    connection.query(query, function(err, res){
         if (err) throw err; 
         console.table(res);
         main()
