@@ -118,6 +118,39 @@ function main() {
                 })
             } else if (answers.add === "Roles") {
                 //sql to add into roles 
+                inquirer.prompt([
+                    {
+                        type: "input",
+                        message: "Please enter in new roles title.",
+                        name : "title"
+                    }, 
+                    {
+                        type: "input",
+                        message: "Please input new role's salary.",
+                        name: "salary"
+                    }, 
+                    {
+                        type: "list",
+                        message: "Select the new role's department",
+                        name : "department_id",
+                        //do i do a join here? or list numbers?      
+                        choices : []
+                    }
+                ]).then(function(answers){
+                    connection.query("INSERT INTO role SET ?",
+
+                    {
+                        title: answers.title,
+                        salary: answers.salary,
+                        department_id: answers.department_id
+                    }, 
+                    
+                    function(err) {
+                        if (err) throw err;
+                        console.log(`${answers.title} was successfully entered into the role table`)
+                    }
+                    )
+                })
             } else if (answers.add === "Employee") {
                 //sql to add employee here 
             }

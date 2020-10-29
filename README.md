@@ -1,6 +1,9 @@
 # employeeTracker
 
 
+## Questions for Hannah 
+utilizing functions/ parameters for sql querries 
+utilizing joins for department ids? 
 
 ## Psudeo Code 
     /////////////////// TO DO \\\\\\\\\\\\\\\\\
