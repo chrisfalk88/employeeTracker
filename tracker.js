@@ -228,39 +228,51 @@ function main() {
             id: element.id,
           }));
 
-
-
-          connection.query("SELECT * FROM role", function(err, res2){
+          connection.query("SELECT * FROM role", function (err, res2) {
             const role = res2.map((element) => ({
               name: element.title,
-              id: element.id
-            }))
+              id: element.id,
+            }));
 
             console.log(employee);
             console.log(role);
-            inquirer.prompt([
-              {
-                type: "list",
-                message: "testing",
-                name: "test",
-                choices: employee
-              },
-              {
-                type: "list",
-                message:"testing again",
-                name: "roleTest",
-                choices: role
-              }
-            ]).then(function(answers){
-              connection.end();
-            })
+            inquirer
+              .prompt([
+                {
+                  type: "list",
+                  message:
+                    "Please select the employee you would like to update",
+                  name: "employeeName",
+                  choices: employee,
+                },
+                {
+                  type: "list",
+                  message: "What new role would you like to assign to him/her",
+                  name: "newRole",
+                  choices: role,
+                },
+              ])
+              .then(function (answers) {
+                console.log(answers.employeeName);
+                console.log(answers.newRole);
 
-
-
-
-          })
-
-
+                connection.query(
+                  "UPDATE employee SET ? WHERE ?",
+                  [
+                    {
+                      role_id: answers.newRole,
+                    },
+                    {
+                      id: answers.employeeName,
+                    },
+                  ],
+                  function (err, res) {
+                    if (err) throw err;
+                    console.log(`${answers.employeeName} was updated!`)
+                  }
+                );
+              });
+          });
         });
       }
       //end of else if statement
