@@ -225,13 +225,13 @@ function main() {
 
           const employee = res.map((element) => ({
             name: element.first_name + " " + element.last_name,
-            id: element.id,
+            value: element.id,
           }));
 
           connection.query("SELECT * FROM role", function (err, res2) {
             const role = res2.map((element) => ({
               name: element.title,
-              id: element.id,
+              value: element.id,
             }));
 
             console.log(employee);
@@ -260,15 +260,16 @@ function main() {
                   "UPDATE employee SET ? WHERE ?",
                   [
                     {
-                      role_id: answers.newRole,
+                      role_id: answers.newRole
                     },
                     {
-                      id: answers.employeeName,
+                      id: answers.employeeName
                     },
                   ],
                   function (err, res) {
                     if (err) throw err;
-                    console.log(`${answers.employeeName} was updated!`)
+                    console.log(`Employee ID # ${answers.employeeName} was updated!`)
+                    main();
                   }
                 );
               });
