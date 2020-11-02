@@ -220,65 +220,52 @@ function main() {
             }
           });
       } else if (answers.list === "Update") {
-
-        //connection to grab employee
-
-        connection.query("SELECT * FROM employee", function(err, res1){
+        connection.query("SELECT * FROM employee", function (err, res) {
           if (err) throw err;
 
-          const employee = res1.map((element) => ({
+          const employee = res.map((element) => ({
             name: element.first_name + " " + element.last_name,
-            value: element.id
-
+            id: element.id,
           }));
 
-          console.log(employee);
+
 
           connection.query("SELECT * FROM role", function(err, res2){
-            if (err) throw err;
-
             const role = res2.map((element) => ({
               name: element.title,
               id: element.id
-            }));
+            }))
 
-          console.log(employee);
+            console.log(employee);
+            console.log(role);
             inquirer.prompt([
               {
-                input: "list",
-                message: "You are only permitted update employee roles. Please Select an employee to update",
-                choices: employee,
-                name: "employee"
+                type: "list",
+                message: "testing",
+                name: "test",
+                choices: employee
               },
               {
-                input: "list",
-                message: "Please select their new role",
-                choices: role,
-                name: "newRole"
+                type: "list",
+                message:"testing again",
+                name: "roleTest",
+                choices: role
               }
             ]).then(function(answers){
-              console.log(answers.employee);
-              console.log(answers.newRole);
               connection.end();
             })
 
 
 
-          }); // end of secon querry connection for roles 
+
+          })
 
 
-          
-
-
-
-
-
-        }); // end of connection.query to grab employee names 
-
-        
-      }; //end of else if statement 
-    }); // end of main .then statement 
-}; //end of main function
+        });
+      }
+      //end of else if statement
+    }); // end of main .then statement
+} //end of main function
 
 function printTable(data) {
   const query = "SELECT * FROM " + data;
