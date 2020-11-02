@@ -161,7 +161,6 @@ function main() {
                   });
               });
             } else if (answers.add === "Employee") {
-              
               connection.query("SELECT * FROM employee", function (err, data) {
                 if (err) throw err;
 
@@ -221,33 +220,65 @@ function main() {
             }
           });
       } else if (answers.list === "Update") {
-        //ask what would like to be updated, departments, roles emps
-        inquirer.prompt([
-            {
-                type: "list",
-                message: "What would you like to update?",
-                name: "update",
-                choices: ["Departments", "Roles", "Employee"]
-            }
-        ]).then(function(answers){
-          //set up else if statements to based on answers 
-          if (answers.choices === "Departments"){
-            //list departments 
-            //select departments 
-            //update selected department 
-          } else if (answers.choices === "Roles"){
-            // list Roles 
-            //select Role 
-            //update select Role 
-          } else if (answers.choices === "Employee"){
-            //list employee
-            //select employee
-            //update selected employee
-          }
-        })
-      }
-    });
-} //end of main function
+
+        //connection to grab employee
+
+        connection.query("SELECT * FROM employee", function(err, res1){
+          if (err) throw err;
+
+          const employee = res1.map((element) => ({
+            name: element.first_name + " " + element.last_name,
+            value: element.id
+
+          }));
+
+          console.log(employee);
+
+          connection.query("SELECT * FROM role", function(err, res2){
+            if (err) throw err;
+
+            const role = res2.map((element) => ({
+              name: element.title,
+              id: element.id
+            }));
+
+          console.log(employee);
+            inquirer.prompt([
+              {
+                input: "list",
+                message: "You are only permitted update employee roles. Please Select an employee to update",
+                choices: employee,
+                name: "employee"
+              },
+              {
+                input: "list",
+                message: "Please select their new role",
+                choices: role,
+                name: "newRole"
+              }
+            ]).then(function(answers){
+              console.log(answers.employee);
+              console.log(answers.newRole);
+              connection.end();
+            })
+
+
+
+          }); // end of secon querry connection for roles 
+
+
+          
+
+
+
+
+
+        }); // end of connection.query to grab employee names 
+
+        
+      }; //end of else if statement 
+    }); // end of main .then statement 
+}; //end of main function
 
 function printTable(data) {
   const query = "SELECT * FROM " + data;
