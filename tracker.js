@@ -253,8 +253,7 @@ function main() {
                 },
               ])
               .then(function (answers) {
-                console.log(answers.employeeName);
-                console.log(answers.newRole);
+
 
                 connection.query(
                   "UPDATE employee SET ? WHERE ?",
@@ -269,15 +268,17 @@ function main() {
                   function (err, res) {
                     if (err) throw err;
                     console.log(`Employee ID # ${answers.employeeName} was updated!`)
+                    
                     connection.query("SELECT * FROM employee LEFT JOIN role ON employee.role_id = role.id", function(err, data){
                       if (err) throw err;
 
                       console.table(data);
+                      main();
                     })
 
 
             
-                    main();
+                   
                   }
                 );
               });
