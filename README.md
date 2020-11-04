@@ -1,26 +1,17 @@
 # employeeTracker
 
+# Author 
+Chris Falk 
 
-## Psudeo Code 
-    /////////////////// TO DO \\\\\\\\\\\\\\\\\
-    * add some default employyes
+## Description 
+A Command Line Application that uses a series of prompts to add, view or update a MySQL database. 
 
-    * write code add departments, role, emps
+## Installation
+NPM install of Mysql and inquirer are required to run application 
 
-    *write code to update existing emp roles
-    
-   
-   *write functions to update Employee, etc 
+## Video Demonstration 
+https://drive.google.com/file/d/13kXlF1pt2IBdcykWZwFdLFqVxMLbflI3/view
 
-
-    /////////////////// DONE \\\\\\\\\\\\\\\\\
-    *write connection querries to display dep role and  emps
-       * add branches for first inquirer prompt "view, add, update and exit
-     * create welcome print with inqurier prompt to display first list actions 
-    * add boiler plate mysql connections 
-    * NPM init and install mysql and inquirer 
-    * build Database with three tables, departments, roles and employee 
-    * copy and paste sql code into schema file 
-
-
-
+## Conact Information 
+email: christophersfalk@gmail.com,
+Github: chrisfalk88 
